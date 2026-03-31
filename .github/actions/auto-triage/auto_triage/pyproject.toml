@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "auto-triage-py"
+version = "0.1.0"
+description = "Python modules for the auto-triage GitHub Action"
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["pylib/tests"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pylib*"]

@@ -6,12 +6,16 @@ on:
       - '.github/actions/auto-triage/auto_triage/lib/**'
       - '.github/actions/auto-triage/auto_triage/modules/**'
       - '.github/actions/auto-triage/auto_triage/tests/**'
+      - '.github/actions/auto-triage/auto_triage/pylib/**'
+      - '.github/actions/auto-triage/auto_triage/pyproject.toml'
       - '.github/workflows/test-auto-triage-lib.yml'
   pull_request:
     paths:
       - '.github/actions/auto-triage/auto_triage/lib/**'
       - '.github/actions/auto-triage/auto_triage/modules/**'
       - '.github/actions/auto-triage/auto_triage/tests/**'
+      - '.github/actions/auto-triage/auto_triage/pylib/**'
+      - '.github/actions/auto-triage/auto_triage/pyproject.toml'
       - '.github/workflows/test-auto-triage-lib.yml'
   workflow_dispatch:
 
@@ -49,3 +53,12 @@ jobs:
               bash "$t"
             done
           done
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run Python tests
+        working-directory: .github/actions/auto-triage/auto_triage
+        run: |
+          pip install pytest
+          python -m pytest pylib/tests/ -v
